@@ -22,6 +22,7 @@ class _MoedasPageState extends State<MoedasPage> {
   appBarDinamica() {
     if (moedasSelecionadas.isEmpty) {
       return AppBar(
+        centerTitle: true,
         title: const Text('Criptomoedas'),
       );
     } else {

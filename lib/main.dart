@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(
     ChangeNotifierProvider(
-        create: (context) => FavoritasRepository(), child: const MyApp()),
+      create: (context) => FavoritasRepository(),
+      child: const MyApp(),
+    ),
   );
 }
