@@ -1,3 +1,4 @@
+import 'package:aplicativo_criptomoeda/configs/app_settings.dart';
 import 'package:aplicativo_criptomoeda/model/moedas_model.dart';
 import 'package:aplicativo_criptomoeda/pages/moedas_detalhes_page.dart';
 import 'package:aplicativo_criptomoeda/repository/favoritas_repository.dart';
@@ -15,15 +16,44 @@ class MoedasPage extends StatefulWidget {
 
 class _MoedasPageState extends State<MoedasPage> {
   final listaMoedas = MoedasRepository.listaMoedas;
-  NumberFormat real = NumberFormat.currency(locale: 'pt_BR', name: 'R\$');
+  late NumberFormat real;
+  late Map<String, String> loc;
   List<Moeda> moedasSelecionadas = [];
   late FavoritasRepository moedasFavoritas;
+
+//Esta lendo o provider
+//Esta formatando o numero de acordo com a preferencia do usuario
+  readNumberFormat() {
+    loc = context.watch<AppSettings>().locale;
+    real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
+  }
+
+  changeLanguageButton() {
+    final locale = loc['locale'] == 'pt_BR' ? 'en_US' : 'pt_BR';
+    final name = loc['locale'] == 'pt_BR' ? '\$' : 'R\$';
+
+    return PopupMenuButton(
+      icon: const Icon(Icons.language),
+      itemBuilder: (context) => [
+        PopupMenuItem(
+            child: ListTile(
+          leading: const Icon(Icons.swap_vert),
+          title: Text('Usar $locale'),
+          onTap: () {
+            context.read<AppSettings>().setLocale(locale, name);
+            Navigator.pop(context);
+          },
+        )),
+      ],
+    );
+  }
 
   appBarDinamica() {
     if (moedasSelecionadas.isEmpty) {
       return AppBar(
         centerTitle: true,
         title: const Text('Criptomoedas'),
+        actions: [changeLanguageButton()],
       );
     } else {
       return AppBar(
@@ -66,6 +96,9 @@ class _MoedasPageState extends State<MoedasPage> {
   Widget build(BuildContext context) {
     // moedasFavoritas = Provider.of<FavoritasRepository>(context);
     moedasFavoritas = context.watch<FavoritasRepository>();
+
+    //Fazer a leitura do Read para carregar o locale
+    readNumberFormat();
 
     return Scaffold(
         appBar: appBarDinamica(),
