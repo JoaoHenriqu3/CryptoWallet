@@ -1,4 +1,4 @@
-import 'package:aplicativo_criptomoeda/repository/favoritas_repository.dart';
+import 'package:aplicativo_criptomoeda/repository/moedas_favoritas_repository.dart';
 import 'package:aplicativo_criptomoeda/widgets/moedas_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
