@@ -1,4 +1,6 @@
 import 'package:aplicativo_criptomoeda/pages/moedas_favoritas_page.dart';
+import 'package:aplicativo_criptomoeda/pages/configuraoes_page.dart';
+import 'package:aplicativo_criptomoeda/pages/carteira_page.dart';
 import 'package:aplicativo_criptomoeda/pages/moedas_page.dart';
 import 'package:flutter/material.dart';
 
@@ -34,13 +36,20 @@ class _HomePageState extends State<HomePage> {
         children: const [
           MoedasPage(),
           FavoritasPage(),
+          CarteiraPage(),
+          ConfiguracoesPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: paginaAtual,
+        type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Todas'),
-          BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Favoritas')
+          BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Favoritas'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.account_balance_wallet), label: 'Carteira'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings), label: 'Configurações'),
         ],
         onTap: (pagina) {
           pc.animateToPage(pagina,

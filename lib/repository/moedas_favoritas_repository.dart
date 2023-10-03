@@ -1,8 +1,8 @@
-import 'dart:collection';
 import 'package:aplicativo_criptomoeda/adapters/moedas_hive_adapters.dart';
 import 'package:aplicativo_criptomoeda/model/moedas_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'dart:collection';
 
 class FavoritasRepository extends ChangeNotifier {
   final List<Moeda> _lista = [];
@@ -34,13 +34,14 @@ class FavoritasRepository extends ChangeNotifier {
   UnmodifiableListView<Moeda> get lista => UnmodifiableListView(_lista);
 
   saveAll(List<Moeda> moedas) {
-    moedas.forEach((moeda) {
-      if (!_lista.any((atual) => atual.sigla == moeda.sigla)) {
-        _lista.add(moeda);
-        box.put(moeda.sigla, moeda);
-      }
-      ;
-    });
+    moedas.forEach(
+      (moeda) {
+        if (!_lista.any((atual) => atual.sigla == moeda.sigla)) {
+          _lista.add(moeda);
+          box.put(moeda.sigla, moeda);
+        }
+      },
+    );
     notifyListeners();
   }
 
