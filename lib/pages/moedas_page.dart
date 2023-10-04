@@ -1,11 +1,11 @@
-import 'package:aplicativo_criptomoeda/configs/app_settings.dart';
-import 'package:aplicativo_criptomoeda/model/moedas_model.dart';
-import 'package:aplicativo_criptomoeda/pages/moedas_detalhes_page.dart';
 import 'package:aplicativo_criptomoeda/repository/moedas_favoritas_repository.dart';
 import 'package:aplicativo_criptomoeda/repository/moedas_repository.dart';
+import 'package:aplicativo_criptomoeda/pages/moedas_detalhes_page.dart';
+import 'package:aplicativo_criptomoeda/configs/app_settings.dart';
+import 'package:aplicativo_criptomoeda/model/moedas_model.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class MoedasPage extends StatefulWidget {
   const MoedasPage({Key? key}) : super(key: key);

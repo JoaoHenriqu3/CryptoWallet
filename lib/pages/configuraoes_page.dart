@@ -39,7 +39,10 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
                 ),
               ),
               trailing: IconButton(
-                  onPressed: updateSaldo(), icon: const Icon(Icons.edit)),
+                  onPressed: () {
+                    updateSaldo();
+                  },
+                  icon: const Icon(Icons.edit)),
             ),
             const Divider()
           ],
@@ -48,52 +51,48 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
     );
   }
 
-  updateSaldo() {
+  updateSaldo() async {
     final form = GlobalKey<FormState>();
     final valor = TextEditingController();
     final conta = context.read<ContaRepository>();
 
     valor.text = conta.saldo.toString();
 
-    Future.delayed(Duration.zero, () {
-      // Esta chamada será realizada após o widget atual terminar a construção
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('Atualizar saldo'),
-            content: Form(
-              key: form,
-              child: TextFormField(
-                controller: valor,
-                keyboardType: TextInputType.number,
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?d*')),
-                ],
-                validator: (value) {
-                  if (value!.isEmpty) return 'Informe o valor do saldo';
-                  return null;
-                },
-              ),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('CANCELAR'),
-              ),
-              TextButton(
-                onPressed: () {
-                  if (form.currentState!.validate()) {
-                    conta.setSaldo(double.parse(valor.text));
-                    Navigator.pop(context);
-                  }
-                },
-                child: const Text('SALVAR'),
-              ),
-            ],
-          );
-        },
-      );
-    });
+    // Esta chamada será realizada após o widget atual terminar a construção
+
+    AlertDialog dialog = AlertDialog(
+      title: const Text('Atualizar saldo'),
+      content: Form(
+        key: form,
+        child: TextFormField(
+          controller: valor,
+          keyboardType: TextInputType.number,
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?d*')),
+          ],
+          validator: (value) {
+            if (value!.isEmpty) return 'Informe o valor do saldo';
+            return null;
+          },
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('CANCELAR'),
+        ),
+        TextButton(
+          onPressed: () {
+            if (form.currentState!.validate()) {
+              conta.setSaldo(double.parse(valor.text));
+              Navigator.pop(context);
+            }
+          },
+          child: const Text('SALVAR'),
+        ),
+      ],
+    );
+
+    showDialog(context: context, builder: (context) => dialog);
   }
 }

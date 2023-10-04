@@ -1,8 +1,12 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
-import 'package:path/path.dart';
+import 'package:path/path.dart' show join;
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 class DB {
+  DB() {
+    if (_database == null) database;
+  }
   // Construtor com acesso privado
   DB._();
   // Criar uma instancia de DB
@@ -10,18 +14,19 @@ class DB {
   //Instancia do SQLite
   static Database? _database;
 
-  get database async {
-    if (_database != null) return _database;
-
-    return await _initDatabase();
+  Future<Database> get database async {
+    databaseFactory = databaseFactoryFfi;
+    if (_database != null) return _database!;
+    _database = await _initDatabase();
+    return _database!;
   }
 
-  _initDatabase() async {
-    return await openDatabase(
-      join(await getDatabasesPath(), 'cripto.db'),
-      version: 1,
-      onCreate: _onCreate,
-    );
+  Future<Database> _initDatabase() async {
+    print('Criando database');
+    final databasesPath = await getDatabasesPath();
+    final path = join(databasesPath, 'cripto.db');
+    print('path $path');
+    return await openDatabase(path, version: 1, onCreate: _onCreate);
   }
 
   _onCreate(db, versao) async {
