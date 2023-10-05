@@ -1,7 +1,7 @@
-import 'package:aplicativo_criptomoeda/pages/moedas_favoritas_page.dart';
-import 'package:aplicativo_criptomoeda/pages/configuraoes_page.dart';
-import 'package:aplicativo_criptomoeda/pages/carteira_page.dart';
-import 'package:aplicativo_criptomoeda/pages/moedas_page.dart';
+import 'package:aplicativo_criptomoeda/page/moedas_favoritas_page.dart';
+import 'package:aplicativo_criptomoeda/page/configuraoes_page.dart';
+import 'package:aplicativo_criptomoeda/page/carteira_page.dart';
+import 'package:aplicativo_criptomoeda/page/moedas_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {

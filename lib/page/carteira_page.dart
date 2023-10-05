@@ -1,6 +1,6 @@
 import 'package:aplicativo_criptomoeda/repository/conta_repository.dart';
 import 'package:aplicativo_criptomoeda/model/posicao_model.dart';
-import 'package:aplicativo_criptomoeda/configs/app_settings.dart';
+import 'package:aplicativo_criptomoeda/config/app_settings.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +31,7 @@ class _CarteiraPageState extends State<CarteiraPage> {
     saldo = conta.saldo;
 
     setTotalCarteira();
+
     return Scaffold(
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(top: 48),
@@ -60,7 +61,7 @@ class _CarteiraPageState extends State<CarteiraPage> {
   setTotalCarteira() {
     final carteiraList = conta.carteira;
     setState(() {
-      totalCarteira - conta.saldo;
+      totalCarteira = conta.saldo;
       for (var posicao in carteiraList) {
         totalCarteira += posicao.moeda.preco * posicao.quantidade;
       }

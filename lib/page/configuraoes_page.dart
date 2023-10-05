@@ -1,5 +1,5 @@
 import 'package:aplicativo_criptomoeda/repository/conta_repository.dart';
-import 'package:aplicativo_criptomoeda/configs/app_settings.dart';
+import 'package:aplicativo_criptomoeda/config/app_settings.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

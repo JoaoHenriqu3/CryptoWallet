@@ -1,4 +1,4 @@
-import 'package:aplicativo_criptomoeda/configs/app_settings.dart';
+import 'package:aplicativo_criptomoeda/config/app_settings.dart';
 import 'package:aplicativo_criptomoeda/repository/conta_repository.dart';
 import 'package:aplicativo_criptomoeda/model/moedas_model.dart';
 import 'package:flutter/material.dart';

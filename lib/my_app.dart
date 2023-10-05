@@ -1,4 +1,4 @@
-import 'package:aplicativo_criptomoeda/pages/home_page.dart';
+import 'package:aplicativo_criptomoeda/page/home_page.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {

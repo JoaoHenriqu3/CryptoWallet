@@ -1,4 +1,4 @@
-import 'package:aplicativo_criptomoeda/adapters/moedas_hive_adapters.dart';
+import 'package:aplicativo_criptomoeda/adapter/moedas_hive_adapters.dart';
 import 'package:aplicativo_criptomoeda/model/moedas_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
