@@ -1,5 +1,5 @@
-import 'package:aplicativo_criptomoeda/database/repository_data/conta_repository.dart';
-import 'package:aplicativo_criptomoeda/database/model_data/posicao_model.dart';
+import 'package:aplicativo_criptomoeda/repository/conta_repository.dart';
+import 'package:aplicativo_criptomoeda/model/posicao_model.dart';
 import 'package:aplicativo_criptomoeda/configs/app_settings.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:provider/provider.dart';
@@ -29,32 +29,30 @@ class _CarteiraPageState extends State<CarteiraPage> {
     final loc = context.read<AppSettings>().locale;
     real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
     saldo = conta.saldo;
-    setTotalCarteira();
 
+    setTotalCarteira();
     return Scaffold(
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(top: 48),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(top: 48, bottom: 8),
-              child: Text(
-                'Valor da Carteira',
-                style: TextStyle(fontSize: 18),
-              ),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          const Padding(
+            padding: EdgeInsets.only(top: 48, bottom: 8),
+            child: Text(
+              'Valor da Carteira',
+              style: TextStyle(fontSize: 18),
             ),
-            Text(
-              real.format(totalCarteira),
-              style: const TextStyle(
-                fontSize: 35,
-                fontWeight: FontWeight.w700,
-                letterSpacing: -1.5,
-              ),
+          ),
+          Text(
+            real.format(totalCarteira),
+            style: const TextStyle(
+              fontSize: 35,
+              fontWeight: FontWeight.w700,
+              letterSpacing: -1.5,
             ),
-            loadGrafico(),
-          ],
-        ),
+          ),
+          loadGrafico(),
+          loadHistorico(),
+        ]),
       ),
     );
   }
@@ -166,5 +164,26 @@ class _CarteiraPageState extends State<CarteiraPage> {
               ),
             ],
           );
+  }
+
+  loadHistorico() {
+    final historico = conta.historico;
+    final date = DateFormat('dd/MM/yyyy - hh:mm');
+
+    List<Widget> widgets = [];
+
+    for (var operacao in historico) {
+      widgets.add(ListTile(
+        title: Text(operacao.moeda.nome),
+        subtitle: Text(date.format(operacao.dataOperacao)),
+        trailing: Text(
+            (operacao.moeda.preco * operacao.quantidade).toStringAsFixed(2)),
+      ));
+      widgets.add(Divider());
+    }
+
+    return Column(
+      children: widgets,
+    );
   }
 }

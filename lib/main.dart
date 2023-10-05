@@ -1,4 +1,4 @@
-import 'package:aplicativo_criptomoeda/database/repository_data/conta_repository.dart';
+import 'package:aplicativo_criptomoeda/repository/conta_repository.dart';
 import 'package:aplicativo_criptomoeda/repository/moedas_favoritas_repository.dart';
 import 'package:aplicativo_criptomoeda/configs/app_settings.dart';
 import 'package:aplicativo_criptomoeda/configs/hive_configs.dart';
@@ -17,7 +17,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => AppSettings()),
         ChangeNotifierProvider(create: (context) => FavoritasRepository()),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }

@@ -1,7 +1,10 @@
+import 'package:aplicativo_criptomoeda/configs/app_settings.dart';
+import 'package:aplicativo_criptomoeda/repository/conta_repository.dart';
 import 'package:aplicativo_criptomoeda/model/moedas_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class MoedasDetalhesPage extends StatefulWidget {
   Moeda moeda;
@@ -17,10 +20,12 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
   final _form = GlobalKey<FormState>();
   final _valor = TextEditingController();
   double quantidade = 0;
+  late ContaRepository conta;
 
-  comprar() {
+  comprar() async {
     if (_form.currentState!.validate()) {
       //salvar a compra
+      await conta.comprar(widget.moeda, double.parse(_valor.text));
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Compra realizada com sucesso!')),
@@ -30,6 +35,8 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
 
   @override
   Widget build(BuildContext context) {
+    readNumberFormat();
+    conta = Provider.of<ContaRepository>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -106,6 +113,8 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                       return 'Informe o valor da compra';
                     } else if (double.parse(value) < 50) {
                       return 'Compra mínima é R\$ 50,00';
+                    } else if (double.parse(value) > conta.saldo) {
+                      return 'Você não tem saldo suficiente para essa compra';
                     }
                     return null;
                   },
@@ -149,5 +158,10 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
         ),
       ),
     );
+  }
+
+  readNumberFormat() {
+    final loc = context.watch<AppSettings>().locale;
+    real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
   }
 }
