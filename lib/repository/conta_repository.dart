@@ -1,10 +1,10 @@
-import 'package:aplicativo_criptomoeda/database/db.dart';
-import 'package:aplicativo_criptomoeda/model/posicao_model.dart';
-import 'package:aplicativo_criptomoeda/model/historico_model.dart';
-import 'package:aplicativo_criptomoeda/model/moedas_model.dart';
 import 'package:aplicativo_criptomoeda/repository/moedas_repository.dart';
-import 'package:flutter/material.dart';
+import 'package:aplicativo_criptomoeda/model/historico_model.dart';
+import 'package:aplicativo_criptomoeda/model/posicao_model.dart';
+import 'package:aplicativo_criptomoeda/model/moedas_model.dart';
+import 'package:aplicativo_criptomoeda/database/db.dart';
 import 'package:sqflite/sqlite_api.dart';
+import 'package:flutter/material.dart';
 
 class ContaRepository extends ChangeNotifier {
   late Database db;

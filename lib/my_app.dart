@@ -1,4 +1,4 @@
-import 'package:aplicativo_criptomoeda/page/home_page.dart';
+import 'package:aplicativo_criptomoeda/widget/auth_check.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
       title: 'MoedasBase',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: Colors.indigo),
-      home: const HomePage(),
+      home: const AuthCheck(),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:aplicativo_criptomoeda/repository/conta_repository.dart';
 import 'package:aplicativo_criptomoeda/config/app_settings.dart';
+import 'package:aplicativo_criptomoeda/service/auth_service.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -44,7 +45,28 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
                   },
                   icon: const Icon(Icons.edit)),
             ),
-            const Divider()
+            const Divider(),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24),
+              child: OutlinedButton(
+                onPressed: () => context.read<AuthService>().logout(),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: Colors.red,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Text(
+                        'Sair do App',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),
