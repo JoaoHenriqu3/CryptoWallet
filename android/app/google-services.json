@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "369429604292",
+    "project_id": "aplicativo-criptomoeda",
+    "storage_bucket": "aplicativo-criptomoeda.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:369429604292:android:1169e7310e49d80cb72691",
+        "android_client_info": {
+          "package_name": "com.example.aplicativo_criptomoeda"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiDdOpx7GE09W1h5UoTaVgQy4RtEc9ng8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
