@@ -180,7 +180,7 @@ class _CarteiraPageState extends State<CarteiraPage> {
         trailing: Text(
             (operacao.moeda.preco * operacao.quantidade).toStringAsFixed(2)),
       ));
-      widgets.add(Divider());
+      widgets.add(const Divider());
     }
 
     return Column(

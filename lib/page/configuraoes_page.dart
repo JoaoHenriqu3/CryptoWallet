@@ -53,9 +53,9 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
                 style: OutlinedButton.styleFrom(
                   foregroundColor: Colors.red,
                 ),
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Padding(
                       padding: EdgeInsets.all(16),
                       child: Text(
