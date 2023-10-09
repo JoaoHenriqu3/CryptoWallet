@@ -1,4 +1,3 @@
-import 'package:sqflite/sqlite_api.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' show join;
 
@@ -20,10 +19,8 @@ class DB {
   }
 
   Future<Database> _initDatabase() async {
-    print('Criando database');
     final databasesPath = await getDatabasesPath();
     final path = join(databasesPath, 'cripto.db');
-    print('path $path');
     return await openDatabase(path, version: 1, onCreate: _onCreate);
   }
 

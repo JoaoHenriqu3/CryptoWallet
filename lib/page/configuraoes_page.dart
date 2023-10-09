@@ -1,6 +1,6 @@
 import 'package:aplicativo_criptomoeda/repository/conta_repository.dart';
-import 'package:aplicativo_criptomoeda/config/app_settings.dart';
 import 'package:aplicativo_criptomoeda/service/auth_service.dart';
+import 'package:aplicativo_criptomoeda/config/app_settings.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -53,9 +53,9 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
                 style: OutlinedButton.styleFrom(
                   foregroundColor: Colors.red,
                 ),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  children: const [
                     Padding(
                       padding: EdgeInsets.all(16),
                       child: Text(

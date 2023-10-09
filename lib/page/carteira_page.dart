@@ -118,7 +118,7 @@ class _CarteiraPageState extends State<CarteiraPage> {
 
   loadGrafico() {
     return (conta.saldo < 0)
-        ? Container(
+        ? SizedBox(
             width: MediaQuery.of(context).size.width,
             height: 200,
             child: const Center(

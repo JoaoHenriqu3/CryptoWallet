@@ -1,4 +1,5 @@
 import 'package:aplicativo_criptomoeda/repository/moedas_favoritas_repository.dart';
+import 'package:aplicativo_criptomoeda/repository/moedas_repository.dart';
 import 'package:aplicativo_criptomoeda/repository/conta_repository.dart';
 import 'package:aplicativo_criptomoeda/service/auth_service.dart';
 import 'package:aplicativo_criptomoeda/config/app_settings.dart';
@@ -17,13 +18,15 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AuthService()),
-        ChangeNotifierProvider(create: (context) => ContaRepository()),
+        ChangeNotifierProvider(create: (context) => MoedaRepository()),
+        ChangeNotifierProvider(
+            create: (context) =>
+                ContaRepository(moedas: context.read<MoedaRepository>())),
         ChangeNotifierProvider(create: (context) => AppSettings()),
         ChangeNotifierProvider(
-          create: (context) => FavoritasRepository(
-            auth: context.read<AuthService>(),
-          ),
-        ),
+            create: (context) => FavoritasRepository(
+                auth: context.read<AuthService>(),
+                moedas: context.read<MoedaRepository>()))
       ],
       child: const MyApp(),
     ),

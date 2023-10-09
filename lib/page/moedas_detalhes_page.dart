@@ -1,4 +1,5 @@
 import 'package:aplicativo_criptomoeda/repository/conta_repository.dart';
+import 'package:aplicativo_criptomoeda/widget/grafico_historico.dart';
 import 'package:aplicativo_criptomoeda/config/app_settings.dart';
 import 'package:aplicativo_criptomoeda/model/moedas_model.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,16 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
   final _valor = TextEditingController();
   double quantidade = 0;
   late ContaRepository conta;
+  Widget grafico = Container();
+  bool graficoLoaded = false;
+
+  getGrafico() {
+    if (!graficoLoaded) {
+      grafico = GraficoHistorico(moeda: widget.moeda);
+      graficoLoaded = true;
+    }
+    return grafico;
+  }
 
   comprar() async {
     if (_form.currentState!.validate()) {
@@ -55,7 +66,10 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                   children: [
                     SizedBox(
                       width: 50,
-                      child: Image.asset(widget.moeda.icone),
+                      child: Image.network(
+                        widget.moeda.icone,
+                        scale: 2.5,
+                      ),
                     ),
                     Container(width: 10),
                     Text(
@@ -70,6 +84,7 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                   ],
                 ),
               ),
+              getGrafico(),
               (quantidade > 0)
                   ? SizedBox(
                       width: MediaQuery.of(context).size.width,
@@ -138,9 +153,9 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                   onPressed: () {
                     comprar();
                   },
-                  child: const Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    children: const [
                       Icon(Icons.check),
                       Padding(
                         padding: EdgeInsets.all(16),
