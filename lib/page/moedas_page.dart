@@ -22,86 +22,14 @@ class _MoedasPageState extends State<MoedasPage> {
   late FavoritasRepository moedasFavoritas;
   late MoedaRepository moedas;
 
-//Esta lendo o provider
-//Esta formatando o numero de acordo com a preferencia do usuario
-  readNumberFormat() {
-    loc = context.watch<AppSettings>().locale;
-    real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
-  }
-
-  changeLanguageButton() {
-    final locale = loc['locale'] == 'pt_BR' ? 'en_US' : 'pt_BR';
-    final name = loc['locale'] == 'pt_BR' ? '\$' : 'R\$';
-
-    return PopupMenuButton(
-      icon: const Icon(Icons.language),
-      itemBuilder: (context) => [
-        PopupMenuItem(
-            child: ListTile(
-          leading: const Icon(Icons.swap_vert),
-          title: Text('Usar $locale'),
-          onTap: () {
-            context.read<AppSettings>().setLocale(locale, name);
-            Navigator.pop(context);
-          },
-        )),
-      ],
-    );
-  }
-
-  appBarDinamica() {
-    if (moedasSelecionadas.isEmpty) {
-      return AppBar(
-        centerTitle: true,
-        title: const Text('Criptomoedas'),
-        actions: [changeLanguageButton()],
-      );
-    } else {
-      return AppBar(
-        leading: IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () {
-              setState(() {
-                moedasSelecionadas = [];
-              });
-            }),
-        title: Text('${moedasSelecionadas.length} selecionadas'),
-        backgroundColor: Colors.blueGrey[50],
-        elevation: 1,
-        iconTheme: const IconThemeData(color: Colors.black87),
-        titleTextStyle: const TextStyle(
-          color: Colors.black87,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
-      );
-    }
-  }
-
-  mostrarDetalhes(Moeda moeda) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => MoedasDetalhesPage(moeda: moeda),
-        ));
-  }
-
-  limparSelecionadas() {
-    setState(() {
-      moedasSelecionadas = [];
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     // moedasFavoritas = Provider.of<FavoritasRepository>(context);
     moedasFavoritas = context.watch<FavoritasRepository>();
     moedas = context.watch<MoedaRepository>();
     tabela = moedas.tabela;
-
     //Fazer a leitura do Read para carregar o locale
     readNumberFormat();
-
     return Scaffold(
         appBar: appBarDinamica(),
         body: RefreshIndicator(
@@ -172,5 +100,75 @@ class _MoedasPageState extends State<MoedasPage> {
                 ),
               )
             : null);
+  }
+
+//Esta lendo o provider
+//Esta formatando o numero de acordo com a preferencia do usuario
+  readNumberFormat() {
+    loc = context.watch<AppSettings>().locale;
+    real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
+  }
+
+  changeLanguageButton() {
+    final locale = loc['locale'] == 'pt_BR' ? 'en_US' : 'pt_BR';
+    final name = loc['locale'] == 'pt_BR' ? '\$' : 'R\$';
+
+    return PopupMenuButton(
+      icon: const Icon(Icons.language),
+      itemBuilder: (context) => [
+        PopupMenuItem(
+            child: ListTile(
+          leading: const Icon(Icons.swap_vert),
+          title: Text('Usar $locale'),
+          onTap: () {
+            context.read<AppSettings>().setLocale(locale, name);
+            Navigator.pop(context);
+          },
+        )),
+      ],
+    );
+  }
+
+  appBarDinamica() {
+    if (moedasSelecionadas.isEmpty) {
+      return AppBar(
+        centerTitle: true,
+        title: const Text('Criptomoedas'),
+        actions: [changeLanguageButton()],
+      );
+    } else {
+      return AppBar(
+        leading: IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: () {
+              setState(() {
+                moedasSelecionadas = [];
+              });
+            }),
+        title: Text('${moedasSelecionadas.length} selecionadas'),
+        backgroundColor: Colors.blueGrey[50],
+        elevation: 1,
+        iconTheme: const IconThemeData(color: Colors.black87),
+        titleTextStyle: const TextStyle(
+          color: Colors.black87,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      );
+    }
+  }
+
+  mostrarDetalhes(Moeda moeda) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => MoedasDetalhesPage(moeda: moeda),
+        ));
+  }
+
+  limparSelecionadas() {
+    setState(() {
+      moedasSelecionadas = [];
+    });
   }
 }

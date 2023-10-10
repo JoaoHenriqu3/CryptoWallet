@@ -26,43 +26,6 @@ class _LoginPageState extends State<LoginPage> {
     setFormAction(true);
   }
 
-  setFormAction(bool acao) {
-    setState(() {
-      isLogin = acao;
-      if (isLogin) {
-        titulo = 'Bem vindo';
-        actionButton = 'Login';
-        toggleButton = 'Ainda não tem conta? Cadastre-se agora';
-      } else {
-        titulo = 'Crie sua conta';
-        actionButton = 'Cadastrar';
-        toggleButton = 'Voltar ao Login';
-      }
-    });
-  }
-
-  login() async {
-    setState(() => loading = true);
-    try {
-      await context.read<AuthService>().login(email.text, senha.text);
-    } on AuthException catch (e) {
-      setState(() => loading = false);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.message)));
-    }
-  }
-
-  registrar() async {
-    setState(() => loading = true);
-    try {
-      await context.read<AuthService>().registrar(email.text, senha.text);
-    } on AuthException catch (e) {
-      setState(() => loading = false);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.message)));
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -169,5 +132,42 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  setFormAction(bool acao) {
+    setState(() {
+      isLogin = acao;
+      if (isLogin) {
+        titulo = 'Bem vindo';
+        actionButton = 'Login';
+        toggleButton = 'Ainda não tem conta? Cadastre-se agora';
+      } else {
+        titulo = 'Crie sua conta';
+        actionButton = 'Cadastrar';
+        toggleButton = 'Voltar ao Login';
+      }
+    });
+  }
+
+  login() async {
+    setState(() => loading = true);
+    try {
+      await context.read<AuthService>().login(email.text, senha.text);
+    } on AuthException catch (e) {
+      setState(() => loading = false);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.message)));
+    }
+  }
+
+  registrar() async {
+    setState(() => loading = true);
+    try {
+      await context.read<AuthService>().registrar(email.text, senha.text);
+    } on AuthException catch (e) {
+      setState(() => loading = false);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.message)));
+    }
   }
 }

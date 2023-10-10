@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:social_share/social_share.dart';
 
 class MoedasDetalhesPage extends StatefulWidget {
   Moeda moeda;
@@ -25,25 +26,6 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
   Widget grafico = Container();
   bool graficoLoaded = false;
 
-  getGrafico() {
-    if (!graficoLoaded) {
-      grafico = GraficoHistorico(moeda: widget.moeda);
-      graficoLoaded = true;
-    }
-    return grafico;
-  }
-
-  comprar() async {
-    if (_form.currentState!.validate()) {
-      //salvar a compra
-      await conta.comprar(widget.moeda, double.parse(_valor.text));
-      Navigator.pop(context);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Compra realizada com sucesso!')),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     readNumberFormat();
@@ -52,6 +34,10 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(widget.moeda.nome),
+        actions: [
+          IconButton(
+              onPressed: compartilharPreco, icon: const Icon(Icons.share))
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -175,8 +161,34 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
     );
   }
 
+  compartilharPreco() {
+    final moeda = widget.moeda;
+    SocialShare.shareOptions(
+      'Confira o preço do ${moeda.nome} agora: ${real.format(moeda.preco)}',
+    );
+  }
+
   readNumberFormat() {
     final loc = context.watch<AppSettings>().locale;
     real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
+  }
+
+  getGrafico() {
+    if (!graficoLoaded) {
+      grafico = GraficoHistorico(moeda: widget.moeda);
+      graficoLoaded = true;
+    }
+    return grafico;
+  }
+
+  comprar() async {
+    if (_form.currentState!.validate()) {
+      //salvar a compra
+      await conta.comprar(widget.moeda, double.parse(_valor.text));
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Compra realizada com sucesso!')),
+      );
+    }
   }
 }
