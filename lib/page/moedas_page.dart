@@ -133,7 +133,7 @@ class _MoedasPageState extends State<MoedasPage> {
     if (moedasSelecionadas.isEmpty) {
       return AppBar(
         centerTitle: true,
-        title: const Text('Criptomoedas'),
+        title: const Text('Crypto Wallet'),
         actions: [changeLanguageButton()],
       );
     } else {

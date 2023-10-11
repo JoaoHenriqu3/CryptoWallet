@@ -44,12 +44,12 @@ class _HomePageState extends State<HomePage> {
         currentIndex: paginaAtual,
         type: BottomNavigationBarType.fixed,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Todas'),
-          BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Favoritas'),
+          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'All'),
+          BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Favorites'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.account_balance_wallet), label: 'Carteira'),
+              icon: Icon(Icons.account_balance_wallet), label: 'Wallet'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.settings), label: 'Configurações'),
+              icon: Icon(Icons.settings), label: 'Settings'),
         ],
         onTap: (pagina) {
           pc.animateToPage(pagina,

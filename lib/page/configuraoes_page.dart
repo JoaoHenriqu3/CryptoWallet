@@ -1,4 +1,5 @@
 import 'package:aplicativo_criptomoeda/repository/conta_repository.dart';
+import 'package:aplicativo_criptomoeda/page/documentos_page.dart';
 import 'package:aplicativo_criptomoeda/service/auth_service.dart';
 import 'package:aplicativo_criptomoeda/config/app_settings.dart';
 import 'package:provider/provider.dart';
@@ -46,24 +47,40 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
                   icon: const Icon(Icons.edit)),
             ),
             const Divider(),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 24),
-              child: OutlinedButton(
-                onPressed: () => context.read<AuthService>().logout(),
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: Colors.red,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Text(
-                        'Sair do App',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    )
-                  ],
+            ListTile(
+              leading: const Icon(Icons.camera_alt),
+              title: const Text('Esanear a CNH ou RG'),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const DocumentosPage(),
+                    fullscreenDialog: true),
+              ),
+            ),
+            const Divider(),
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 24),
+                  child: OutlinedButton(
+                    onPressed: () => context.read<AuthService>().logout(),
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: Colors.red,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Text(
+                            'Sair do App',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ),
             )

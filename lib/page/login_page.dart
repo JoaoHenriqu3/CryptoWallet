@@ -19,6 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   late String actionButton;
   late String toggleButton;
   bool loading = false;
+  bool obscureText = true;
 
   @override
   void initState() {
@@ -53,6 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                       border: OutlineInputBorder(),
                       labelText: 'Email',
                     ),
+                    autofocus: false,
                     keyboardType: TextInputType.emailAddress,
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -66,11 +68,25 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.all(24),
                   child: TextFormField(
                     controller: senha,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Senha',
-                    ),
+                    obscureText: obscureText,
+                    decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText: 'Password',
+                        suffixIcon: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                obscureText = !obscureText;
+                              });
+                            },
+                            child: Icon(
+                              obscureText
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              semanticLabel: obscureText
+                                  ? 'show password'
+                                  : 'hide password',
+                            ))),
+                    autofocus: false,
                     keyboardType: TextInputType.emailAddress,
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -138,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       isLogin = acao;
       if (isLogin) {
-        titulo = 'Bem vindo';
+        titulo = 'Welcome!';
         actionButton = 'Login';
         toggleButton = 'Ainda não tem conta? Cadastre-se agora';
       } else {

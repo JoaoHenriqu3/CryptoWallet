@@ -2,11 +2,11 @@ import 'package:aplicativo_criptomoeda/repository/conta_repository.dart';
 import 'package:aplicativo_criptomoeda/widget/grafico_historico.dart';
 import 'package:aplicativo_criptomoeda/config/app_settings.dart';
 import 'package:aplicativo_criptomoeda/model/moedas_model.dart';
+import 'package:social_share/social_share.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:social_share/social_share.dart';
 
 class MoedasDetalhesPage extends StatefulWidget {
   Moeda moeda;
