@@ -1,16 +1,4 @@
-# aplicativo_criptomoeda
+# 🪙 Crypto Wallet
 
-A new Flutter project.
+O projeto de exemplo consiste em, passo a passo, construir um aplicativo para listar algumas criptomoedas, como o Bitcoin, Ethereum, entre outras, mostrando algumas informações de histórico de preços, gráficos e outros dados.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
