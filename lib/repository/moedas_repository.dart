@@ -7,10 +7,10 @@ import 'dart:convert';
 import 'dart:async';
 
 class MoedaRepository extends ChangeNotifier {
-  List<Moeda> _tabela = [];
+  List<Moeda> listaDeMoedas = [];
   late Timer intervalo;
 
-  List<Moeda> get tabela => _tabela;
+  List<Moeda> get tabela => listaDeMoedas;
 
   MoedaRepository() {
     _setupMoedasTable();
@@ -57,7 +57,7 @@ class MoedaRepository extends ChangeNotifier {
       Database db = await DB.instance.database;
       Batch batch = db.batch();
 
-      _tabela.forEach((atual) {
+      listaDeMoedas.forEach((atual) {
         moedas.forEach((novo) {
           if (atual.baseId == novo['base_id']) {
             final moeda = novo['prices'];
@@ -91,7 +91,7 @@ class MoedaRepository extends ChangeNotifier {
     Database db = await DB.instance.database;
     List resultados = await db.query('moedas');
 
-    _tabela = resultados.map((row) {
+    listaDeMoedas = resultados.map((row) {
       return Moeda(
         baseId: row['baseId'],
         icone: row['icone'],

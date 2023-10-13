@@ -18,7 +18,8 @@ class MoedasDetalhesPage extends StatefulWidget {
 }
 
 class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
-  NumberFormat real = NumberFormat.currency(locale: 'pt_BR', name: 'R\$');
+  late NumberFormat formatarStringDolarParaReal =
+      NumberFormat.currency(locale: 'pt_BR', name: 'R\$');
   final _form = GlobalKey<FormState>();
   final _valor = TextEditingController();
   double quantidade = 0;
@@ -59,7 +60,7 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                     ),
                     Container(width: 10),
                     Text(
-                      real.format(widget.moeda.preco),
+                      formatarStringDolarParaReal.format(widget.moeda.preco),
                       style: TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.w600,
@@ -164,13 +165,14 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
   compartilharPreco() {
     final moeda = widget.moeda;
     SocialShare.shareOptions(
-      'Confira o preço do ${moeda.nome} agora: ${real.format(moeda.preco)}',
+      'Confira o preço do ${moeda.nome} agora: ${formatarStringDolarParaReal.format(moeda.preco)}',
     );
   }
 
   readNumberFormat() {
     final loc = context.watch<AppSettings>().locale;
-    real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
+    formatarStringDolarParaReal =
+        NumberFormat.currency(locale: loc['locale'], name: loc['name']);
   }
 
   getGrafico() {
