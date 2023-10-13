@@ -1,3 +1,4 @@
+import 'package:aplicativo_criptomoeda/page/comprar_page.dart';
 import 'package:aplicativo_criptomoeda/widget/auth_check.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,7 @@ class MyApp extends StatelessWidget {
       title: 'CRYPTO WALLET',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: Colors.indigo),
-      home: const AuthCheck(),
+      home: const ComprarPage(),
     );
   }
 }

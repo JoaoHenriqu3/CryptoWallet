@@ -21,6 +21,7 @@ class _MoedasPageState extends State<MoedasPage> {
   List<Moeda> moedasSelecionadas = [];
   late FavoritasRepository moedasFavoritas;
   late MoedaRepository moedas;
+  TextEditingController buscarMoedaController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,53 +35,106 @@ class _MoedasPageState extends State<MoedasPage> {
         appBar: appBarDinamica(),
         body: RefreshIndicator(
           onRefresh: () => moedas.checkPrecos(),
-          child: ListView.separated(
-            itemBuilder: (BuildContext context, int moeda) {
-              return ListTile(
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(12))),
-                leading: (moedasSelecionadas.contains(tabela[moeda]))
-                    ? const CircleAvatar(child: Icon(Icons.check))
-                    : SizedBox(
-                        width: 40,
-                        child: Image.network(tabela[moeda].icone),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Container(
+                  width: double.infinity,
+                  height: 50.0,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4.0),
+                    border: Border.all(
+                        color: Colors.black.withOpacity(0.5), width: 1.0),
+                  ),
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 8.0),
+                      Icon(Icons.search, color: Colors.black.withOpacity(0.5)),
+                      const SizedBox(width: 16.0),
+                      Expanded(
+                        child: TextField(
+                          controller: buscarMoedaController,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: "Search",
+                            hintStyle: TextStyle(
+                              color: Colors.black.withOpacity(0.5),
+                            ),
+                          ),
+                          style: const TextStyle(color: Colors.black),
+                        ),
                       ),
-                title: Row(
-                  children: [
-                    Text(
-                      tabela[moeda].nome,
-                      style: const TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w500,
+                      const SizedBox(
+                        width: 8.0,
                       ),
-                    ),
-                    if (moedasFavoritas.lista
-                        .any((fav) => fav.sigla == tabela[moeda].sigla))
-                      const Icon(
-                        Icons.circle,
-                        color: Colors.amber,
-                        size: 8,
-                      )
-                  ],
+                    ],
+                  ),
                 ),
-                trailing: Text(
-                  real.format(tabela[moeda].preco),
+              ),
+              Expanded(
+                child: ListView.separated(
+                  itemBuilder: (BuildContext context, int moeda) {
+                    return ListTile(
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12))),
+                      leading: (moedasSelecionadas.contains(tabela[moeda]))
+                          ? const CircleAvatar(child: Icon(Icons.check))
+                          : SizedBox(
+                              width: 40,
+                              child: Image.network(tabela[moeda].icone),
+                            ),
+                      title: Row(
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                tabela[moeda].nome,
+                                style: const TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              Text(
+                                tabela[moeda].sigla,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                          if (moedasFavoritas.lista
+                              .any((fav) => fav.sigla == tabela[moeda].sigla))
+                            const Icon(
+                              Icons.star_rounded,
+                              color: Colors.amber,
+                              size: 18,
+                            )
+                        ],
+                      ),
+                      trailing: Text(
+                        real.format(tabela[moeda].preco),
+                      ),
+                      selected: moedasSelecionadas.contains(tabela[moeda]),
+                      selectedColor: Colors.indigo[50],
+                      onLongPress: () {
+                        setState(() {
+                          (moedasSelecionadas.contains(tabela[moeda]))
+                              ? moedasSelecionadas.remove(tabela[moeda])
+                              : moedasSelecionadas.add(tabela[moeda]);
+                        });
+                      },
+                      onTap: () => mostrarDetalhes(tabela[moeda]),
+                    );
+                  },
+                  padding: const EdgeInsets.all(16),
+                  separatorBuilder: (_, __) => const Divider(),
+                  itemCount: tabela.length,
                 ),
-                selected: moedasSelecionadas.contains(tabela[moeda]),
-                selectedColor: Colors.indigo[50],
-                onLongPress: () {
-                  setState(() {
-                    (moedasSelecionadas.contains(tabela[moeda]))
-                        ? moedasSelecionadas.remove(tabela[moeda])
-                        : moedasSelecionadas.add(tabela[moeda]);
-                  });
-                },
-                onTap: () => mostrarDetalhes(tabela[moeda]),
-              );
-            },
-            padding: const EdgeInsets.all(16),
-            separatorBuilder: (_, __) => const Divider(),
-            itemCount: tabela.length,
+              ),
+            ],
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -134,6 +188,7 @@ class _MoedasPageState extends State<MoedasPage> {
       return AppBar(
         centerTitle: true,
         title: const Text('Crypto Wallet'),
+        leading: const Icon(Icons.menu),
         actions: [changeLanguageButton()],
       );
     } else {

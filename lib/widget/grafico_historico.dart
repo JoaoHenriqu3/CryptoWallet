@@ -159,11 +159,11 @@ class _GraficoHistoricoState extends State<GraficoHistorico> {
             child: Row(
               children: [
                 chartButton(Periodo.hora, '1H'),
-                chartButton(Periodo.dia, '24H'),
-                chartButton(Periodo.semana, '7D'),
-                chartButton(Periodo.mes, 'Mês'),
-                chartButton(Periodo.ano, 'Ano'),
-                chartButton(Periodo.total, 'Tudo'),
+                chartButton(Periodo.dia, '1D'),
+                chartButton(Periodo.semana, '1W'),
+                chartButton(Periodo.mes, '1M'),
+                chartButton(Periodo.ano, '1Y'),
+                chartButton(Periodo.total, 'ALL'),
               ],
             ),
           ),
