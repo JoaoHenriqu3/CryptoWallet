@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
       title: 'CRYPTO WALLET',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: Colors.indigo),
-      home: const ComprarPage(),
+      home: const AuthCheck(),
     );
   }
 }

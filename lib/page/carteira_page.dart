@@ -1,6 +1,6 @@
+import 'package:aplicativo_criptomoeda/config/app_settings.dart';
 import 'package:aplicativo_criptomoeda/repository/conta_repository.dart';
 import 'package:aplicativo_criptomoeda/model/posicao_model.dart';
-import 'package:aplicativo_criptomoeda/config/app_settings.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,6 @@
-import 'package:aplicativo_criptomoeda/service/auth_service.dart';
 import 'package:aplicativo_criptomoeda/page/login_page.dart';
 import 'package:aplicativo_criptomoeda/page/home_page.dart';
+import 'package:aplicativo_criptomoeda/service/auth_service.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
